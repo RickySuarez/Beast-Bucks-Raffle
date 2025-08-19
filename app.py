@@ -51,6 +51,7 @@ if uploaded_file:
             if idx < len(st.session_state.winner_queue):
                 next_winner = st.session_state.winner_queue[idx]
                 # Animate slot machine
+                st.markdown("""<audio autoplay style="display:none;">  <source src="media\\slotmachine.mp3" type="audio/mp3"></audio>""", unsafe_allow_html=True)
                 for _ in range(75):
                     slot_display.markdown(f"<h1 style='font-size:70px;'> {random.choice(students)} </h1>", unsafe_allow_html=True)
                     time.sleep(0.05)
@@ -59,5 +60,3 @@ if uploaded_file:
                 st.session_state.current_index += 1
             else:
                 st.success("All winners have been drawn!")
-
-                
