@@ -51,11 +51,11 @@ if uploaded_file:
             if idx < len(st.session_state.winner_queue):
                 next_winner = st.session_state.winner_queue[idx]
                 # Animate slot machine
-                st.markdown("""<audio autoplay style="display:none;">  <source src="media\\slotmachine.mp3" type="audio/mp3"></audio>""", unsafe_allow_html=True)
-                for _ in range(75):
-                    slot_display.markdown(f"<h1 style='font-size:70px;'> {random.choice(students)} </h1>", unsafe_allow_html=True)
+                st.audio(data="media/slotmachine.mp3", format="audio/mp3", autoplay=True, width=1)
+                for _ in range(60):
+                    slot_display.markdown(f"<h1 style='font-size:60px;'> {random.choice(students)} </h1>", unsafe_allow_html=True)
                     time.sleep(0.05)
-                slot_display.markdown(f"<h1 style='font-size:70px; color:green;'>🏆 {next_winner} 🏆</h1>", unsafe_allow_html=True)
+                slot_display.markdown(f"<h1 style='font-size:60px; color:green;'>🏆 {next_winner} 🏆</h1>", unsafe_allow_html=True)
 
                 st.session_state.current_index += 1
             else:
