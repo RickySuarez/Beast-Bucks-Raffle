@@ -43,5 +43,6 @@ if uploaded_file:
         button_placeholder.empty()
         click = button_placeholder.button("Restart", key ="restart_" + str(st.session_state.count))
         draw(st.session_state, num_winners, threshold)
-        slot_machine(st.session_state)
+        if len(st.session_state.winners) != 0:
+            slot_machine(st.session_state)
         st.session_state.count += 1

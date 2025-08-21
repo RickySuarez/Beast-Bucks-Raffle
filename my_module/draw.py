@@ -19,6 +19,7 @@ def draw(session_state, num_winners, threshold):
     # Weighted raffle is based on how much of the most recent homework is complete.
     low = 1
     intervals = []
+    total = 0
 
     # Pick the winners.
     for student in session_state.students:
@@ -29,23 +30,20 @@ def draw(session_state, num_winners, threshold):
             high = low + grade - 1
             intervals.append((low, high, student))
             low = high + 1
+            total += grade
     
-    # The largest assigned interval is the size of the total interval.
-    total = intervals[-1][1]
-
     # If there are not enough students that reach the threshold, readjust.
-    if len(intervals) < num_winners:
+    if len(intervals) == 0:
+        st.write("No students have reached the threshold.")
+    elif len(intervals) < num_winners:
         num_winners = len(intervals)
-        if num_winners == 1:
-            plural = "winner"
-        else:
-            plural = "winners"
         st.write("Not enough students reached the threshold.")
-        st.write(f"Picking {num_winners} {plural} instead.")
+        st.write(f"Picking {num_winners} winner{'s' if num_winners != 1 else ''} instead.")
+        
 
     # Choose winners and place them into a set to avoid repeats.
     winners = set()
-    while len(winners) < num_winners:
+    while len(winners) < num_winners and total > 0:
         winning_num = random.randint(1, total)
         winner = next(s for (l, h, s) in intervals if l <= winning_num <= h)
         winners.add(winner)
